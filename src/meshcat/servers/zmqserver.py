@@ -390,6 +390,8 @@ def main():
 
     parser = argparse.ArgumentParser(description="Serve the MeshCat HTML files and listen for ZeroMQ commands")
     parser.add_argument('--zmq-url', '-z', type=str, nargs="?", default=None)
+    parser.add_argument('--host', '-w', type=str, nargs="?", default="127.0.0.1")
+    parser.add_argument('--port', '-p', type=int, nargs="?", default=None)
     parser.add_argument('--open', '-o', action="store_true")
     parser.add_argument('--certfile', type=str, default=None)
     parser.add_argument('--keyfile', type=str, default=None)
@@ -398,6 +400,8 @@ ngrok is a service for creating a public URL from your local machine, which
 is very useful if you would like to make your meshcat server public.""")
     results = parser.parse_args()
     bridge = ZMQWebSocketBridge(zmq_url=results.zmq_url,
+                                host=results.host,
+                                port=results.port,
                                 certfile=results.certfile,
                                 keyfile=results.keyfile,
                                 ngrok_http_tunnel=results.ngrok_http_tunnel)
